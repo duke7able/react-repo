@@ -25,8 +25,14 @@ export function isUserLoggedIn() {
  *  @param key is the key : DOM string
  *  @param value is the value that gets stored : DOM string
  */
-export function setData(key, pair) {
-  localStorage.setItem(key, pair);
+export function setData(key, value) {
+  const stringifyData = JSON.stringify(value);
+  localStorage.setItem(key, stringifyData);
+}
+
+export function getData(key) {
+  const parseData = localStorage.getItem(key);
+  return !!parseData && JSON.parse(parseData);
 }
 
 export function login(credentials) {

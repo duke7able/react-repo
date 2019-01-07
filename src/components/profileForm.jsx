@@ -2,26 +2,34 @@ import React, { Component } from "react";
 import FormFieldElement from "./formFieldElement";
 import MutableVerticalList from "./mutableVerticalList";
 import { validateInput } from "../helper/validateLogin";
+import { setData , getData } from "../helper/model";
+
+const STORAGE_NAME = "ProfileForm";
 
 class ProfileForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      name: "",
-      age: "",
-      gender: "other",
-      errors: {},
-      items: [
-        { content: " Python" },
-        { content: " ReactJS" },
-        { content: " C++" },
-        { content: " Php" },
-        { content: " Android" }
-      ]
-    };
-    this.state.items.map((item, index) => {
-      item.id = index;
-    });
+    if (getData(STORAGE_NAME)) {
+      this.state = getData(STORAGE_NAME);
+    } else {
+      // default
+      this.state = {
+        name: "",
+        age: "",
+        gender: "other",
+        errors: {},
+        items: [
+          { content: " Python" },
+          { content: " ReactJS" },
+          { content: " C++" },
+          { content: " Php" },
+          { content: " Android" }
+        ]
+      };
+      this.state.items.map((item, index) => {
+        item.id = index;
+      });
+    }
   }
 
   isValid() {
@@ -35,25 +43,26 @@ class ProfileForm extends Component {
   }
 
   onChange = e => {
-    this.setState({ [e.target.name]: e.target.value }, this.saveData);
+    this.setState({ [e.target.name]: e.target.value }, this.saveFormProgress);
   };
 
-  saveData = () => {
+  saveFormProgress = () => {
     if (this.isValid()) {
-      this.setState({ errors: {} });
-      //   save the data to localstorage
+      this.setState({ errors: {} }, this.saveData );
     }
   };
 
+  saveData = () => {
+    setData(STORAGE_NAME,this.state);
+  }
+
   onRadioChange = e => {
     const { name, value } = e.target;
-    this.setState({
-      gender: value
-    });
+    this.setState({ gender: value }, this.saveData );
   };
 
   handleListChange = items => {
-    this.setState({ items });
+    this.setState({ items }, this.saveData);
   };
 
   // Name , Age , Gender and skills, that is list
