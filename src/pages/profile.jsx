@@ -2,19 +2,18 @@ import React from "react";
 import { isUserLoggedIn } from "../helper/model";
 import "../css/common.css";
 import ProfileForm from "../components/profileForm";
+import Container from "../components/container";
 
-const Profile = ({ props }) => {
+const Profile = () => {
   if (isUserLoggedIn()) {
     return (
-      <div className="row profilePage">
-        <div className="col-md-4 col-md-offset-4">
+      <Container>
           <ProfileForm />
-        </div>
-      </div>
+      </Container>
     );
   } else {
     return (
-      <div className="row loginPage">
+      <div className="row page">
         <h3>You need to log in first</h3>
       </div>
     );

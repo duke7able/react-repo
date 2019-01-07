@@ -1,8 +1,11 @@
 import React from 'react';
+import Container from "../components/container";
 
-const Home = ({ props }) => {
+const Home = ( props ) => {
     return ( 
-            <h1>Home</h1>
+        <Container>
+        <h1>Home</h1>
+        </Container>
         );
 }
  

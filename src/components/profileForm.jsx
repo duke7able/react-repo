@@ -49,17 +49,16 @@ class ProfileForm extends Component {
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value }, this.saveFormProgress);
-  };
+  }
 
   handleListReset = () => {
     this.setState({ items: this.resetList() }, this.saveData);
   }
 
   saveFormProgress = () => {
-    if (this.isValid()) {
-      this.setState({ errors: {} }, this.saveData );
-    }
-  };
+    this.isValid();
+    this.saveData();
+  }
 
   saveData = () => {
     setData(STORAGE_NAME,this.state);

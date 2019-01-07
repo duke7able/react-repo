@@ -1,5 +1,4 @@
-div.loginPage,
-div.profilePage {
+div.page {
   align-items: center;
   justify-content: space-around;
 }
