@@ -18,21 +18,26 @@ class ProfileForm extends Component {
         age: "",
         gender: "other",
         errors: {},
-        items: [
-          { content: " Python" },
-          { content: " ReactJS" },
-          { content: " C++" },
-          { content: " Php" },
-          { content: " Android" }
-        ]
+        items: this.resetList()
       };
-      this.state.items.map((item, index) => {
-        item.id = index;
-      });
     }
   }
 
-  isValid() {
+  resetList = () => {
+    const items = [
+        { content: " JavaScript" },
+        { content: " Python" },
+        { content: " PHP " },
+        { content: " Java" },
+        { content: " C++" }
+      ];
+    items.map((item, index) => {
+      item.id = index;
+    })
+    return items;
+  }
+
+  isValid = () => {
     const { errors, isValid } = validateInput(this.state);
 
     if (!isValid) {
@@ -45,6 +50,10 @@ class ProfileForm extends Component {
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value }, this.saveFormProgress);
   };
+
+  handleListReset = () => {
+    this.setState({ items: this.resetList() }, this.saveData);
+  }
 
   saveFormProgress = () => {
     if (this.isValid()) {
@@ -131,7 +140,11 @@ class ProfileForm extends Component {
             Male
           </label>
         </div>
-        <MutableVerticalList items={this.state.items} onListChange={this.handleListChange}/>
+        <MutableVerticalList
+        items={this.state.items}
+        onListChange={this.handleListChange}
+        onReset={this.handleListReset}
+        />
       </form>
     );
   }

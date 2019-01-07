@@ -87,6 +87,7 @@ class MutableVerticalList extends Component {
 
   render() {
     return (
+      <React.Fragment>
       <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId="droppable">
           {(provided, snapshot) => (
@@ -128,6 +129,8 @@ class MutableVerticalList extends Component {
           )}
         </Droppable>
       </DragDropContext>
+      <button className="btn btn-secondary" onClick={this.props.onReset}>Reset List</button>
+      </React.Fragment>
     );
   }
 }
