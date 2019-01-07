@@ -13,12 +13,27 @@ export const BOOLS = Object.freeze({
 
 export function setLogin(isLogin) {
   localStorage.setItem("UserLoggedIn", isLogin);
-  return true;
 }
 
 export function isUserLoggedIn() {  
   // check added for null
-  return BOOLS[!!localStorage.getItem("UserLoggedIn")];
+  const dataAvialable = !!localStorage.getItem("UserLoggedIn") ? localStorage.getItem("UserLoggedIn") : "false";
+  return BOOLS[dataAvialable];
+}
+
+/*
+ *  Since the sessionStorage will get cleared on browser closing therefore
+ *  everytime when user is logged in and comes to our site
+ *  for once we navigate him / her to profile page
+ */
+export function firstBrowserOpen() {
+  const firstTimeOpenAfterLogin = sessionStorage.getItem("firstTimeOpenAfterLogin");
+  // null check, hence when browser opened for the first time and if logged in then redirect
+  if (!firstTimeOpenAfterLogin ) {
+    sessionStorage.setItem("firstTimeOpenAfterLogin", 'any_random_value');
+    return true;
+  } 
+  return false;
 }
 
 /*

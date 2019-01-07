@@ -79,7 +79,7 @@ class ProfileForm extends Component {
     const { errors, name, age, gender } = this.state;
 
     return (
-      <form>
+      <form method="post">
         <h1>Profile</h1>
         <FormFieldElement
           field="name"

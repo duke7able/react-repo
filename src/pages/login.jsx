@@ -2,9 +2,8 @@ import React from 'react';
 import LoginForm from '../components/loginForm';
 import '../css/common.css';
 import { isUserLoggedIn } from "../helper/model";
-import Container from "../components/container";
 
-const Login = () => {
+const Login = ( props ) => {
 
     if ( isUserLoggedIn() ) {
         return (
@@ -14,9 +13,11 @@ const Login = () => {
         );
     } else {
         return ( 
-            <Container>
-                <LoginForm />
-            </Container>
+            <div className="row page">
+                <div className="col-md-4 col-md-offset-4">
+                <LoginForm onLogin={props.onLogin} />
+                </div>
+            </div>
             );
     }
 

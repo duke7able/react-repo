@@ -32,7 +32,8 @@ class LoginForm extends React.Component {
         (res) => { 
             this.props.history.replace('./profile');
             // wont be needing this monkey patch if implemented redux or had single source of truth approach
-            window.location.reload();
+            // window.location.reload();
+            this.props.onLogin();
         },
         (errors) => this.setState({ errors })
       );
