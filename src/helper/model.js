@@ -16,8 +16,9 @@ export function setLogin(isLogin) {
   return true;
 }
 
-export function isUserLoggedIn() {
-  return BOOLS[localStorage.getItem("UserLoggedIn")];
+export function isUserLoggedIn() {  
+  // check added for null
+  return BOOLS[!!localStorage.getItem("UserLoggedIn")];
 }
 
 /*
@@ -32,6 +33,7 @@ export function setData(key, value) {
 
 export function getData(key) {
   const parseData = localStorage.getItem(key);
+  // check added for null
   return !!parseData && JSON.parse(parseData);
 }
 
