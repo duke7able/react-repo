@@ -32,22 +32,34 @@ const getListStyle = isDraggingOver => ({
   width: 250
 });
 
+// const onDragEnd = (result , currentItems) => {
+//   // dropped outside the list
+//   if (!result.destination) {
+//     return;
+//   }
+//   const items = reorder(
+//     currentItems,
+//     result.source.index,
+//     result.destination.index
+//   );
+//   this.saveChanges(items);
+// };
+
+// const onDeleteItem = ( index , currentItems) => {
+//   const items = Array.from(currentItems);
+//   items.splice(index, 1);
+//   this.saveChanges(items);
+// };
+
+// const MutableVerticalList = ({ props }) => {
+//   return ( 
+//           <h1>Home</h1>
+//       );
+// }
+
 class MutableVerticalList extends Component {
   constructor(props) {
     super(props);
-    // static setting
-    this.state = {
-      items: [
-        { content: " Python" },
-        { content: " ReactJS" },
-        { content: " C++" },
-        { content: " Php" },
-        { content: " Android" }
-      ]
-    };
-    this.state.items.map((item, index) => {
-      item.id = index;
-    });
   }
 
   onDragEnd = result => {
@@ -55,23 +67,23 @@ class MutableVerticalList extends Component {
     if (!result.destination) {
       return;
     }
-
     const items = reorder(
-      this.state.items,
+      this.props.items,
       result.source.index,
       result.destination.index
     );
-
-    this.setState({
-      items
-    });
+    this.saveChanges(items);
   };
 
   onDeleteItem = index => {
-    const items = Array.from(this.state.items);
+    const items = Array.from(this.props.items);
     items.splice(index, 1);
-    this.setState({ items });
+    this.saveChanges(items);
   };
+
+  saveChanges = items => {
+    this.props.onListChange(items);
+  }
 
   render() {
     return (
@@ -82,7 +94,7 @@ class MutableVerticalList extends Component {
               ref={provided.innerRef}
               style={getListStyle(snapshot.isDraggingOver)}
             >
-              {this.state.items.map((item, index) => (
+              {this.props.items.map((item, index) => (
                 <Draggable
                   key={item.id}
                   draggableId={item.id.toString()}

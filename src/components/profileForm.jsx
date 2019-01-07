@@ -10,9 +10,18 @@ class ProfileForm extends Component {
       name: "",
       age: "",
       gender: "other",
-      errors: {}
+      errors: {},
+      items: [
+        { content: " Python" },
+        { content: " ReactJS" },
+        { content: " C++" },
+        { content: " Php" },
+        { content: " Android" }
+      ]
     };
-    // this.gender.selected = "other";
+    this.state.items.map((item, index) => {
+      item.id = index;
+    });
   }
 
   isValid() {
@@ -43,7 +52,9 @@ class ProfileForm extends Component {
     });
   };
 
-  onVerticalListChange = items => {};
+  handleListChange = items => {
+    this.setState({ items });
+  };
 
   // Name , Age , Gender and skills, that is list
 
@@ -111,7 +122,7 @@ class ProfileForm extends Component {
             Male
           </label>
         </div>
-        <MutableVerticalList />
+        <MutableVerticalList items={this.state.items} onListChange={this.handleListChange}/>
       </form>
     );
   }
