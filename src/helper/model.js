@@ -1,6 +1,9 @@
 /*
  * Helper methods not so react way but just providing abstraction
  */
+
+import PersistentStore from 'persistent-storage';
+import StorageShim from 'node-storage-shim';
 /*
  *  freezing the object to make it immutable
  *  also its better and faster to handle the booleans that are coming as string
@@ -11,13 +14,19 @@ export const BOOLS = Object.freeze({
   false: false
 });
 
+const STORE = new PersistentStore({
+  useCompression: false, 
+  storageBackend: new StorageShim()
+})
+
 export function setLogin(isLogin) {
-  localStorage.setItem("UserLoggedIn", isLogin);
+  STORE.setItem("UserLoggedIn",isLogin);
+  // localStorage.setItem("UserLoggedIn", isLogin);
   return true;
 }
 
 export function isUserLoggedIn() {
-  return BOOLS[localStorage.getItem("UserLoggedIn")];
+  return BOOLS[STORE.getItem("UserLoggedIn")];
 }
 
 /*
