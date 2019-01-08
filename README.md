@@ -1,7 +1,7 @@
 # react-repo
 simple react repo : with login form and profile drag and droppable list
 
-# Redux / central control
+# Redux / central store
 I have not used / implemented Redux or any other central store since it would be an overkill
 
 # Storage
