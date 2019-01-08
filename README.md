@@ -5,7 +5,7 @@ simple react repo : with login form and profile contains user details ,  drag an
 I have not used / implemented Redux or any other central store since it would be an overkill
 
 # Storage
-Use of localStorage for storing and no api / server is present as of now
+Use of localStorage for storing and no api / server is present as of now .
 Use of sessionStorage for implementing feature described below
 
 # navigation to profile page
