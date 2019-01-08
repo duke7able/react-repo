@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import FormFieldElement from "./formFieldElement";
 import MutableVerticalList from "./mutableVerticalList";
 import { validateInput } from "../helper/validateLogin";
-import { setData , getData } from "../helper/model";
+import { setData, getData } from "../helper/model";
 
 const STORAGE_NAME = "ProfileForm";
 
@@ -25,17 +25,17 @@ class ProfileForm extends Component {
 
   resetList = () => {
     const items = [
-        { content: " JavaScript" },
-        { content: " Python" },
-        { content: " PHP " },
-        { content: " Java" },
-        { content: " C++" }
-      ];
+      { content: " JavaScript" },
+      { content: " Python" },
+      { content: " PHP " },
+      { content: " Java" },
+      { content: " C++" }
+    ];
     items.map((item, index) => {
       item.id = index;
-    })
+    });
     return items;
-  }
+  };
 
   isValid = () => {
     const { errors, isValid } = validateInput(this.state);
@@ -45,28 +45,30 @@ class ProfileForm extends Component {
     }
 
     return isValid;
-  }
+  };
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value }, this.saveFormProgress);
-  }
+  };
 
   handleListReset = () => {
     this.setState({ items: this.resetList() }, this.saveData);
-  }
+  };
 
   saveFormProgress = () => {
-    this.isValid();
+    if (this.isValid()) {
+      this.setState({ errors: {} });
+    }
     this.saveData();
-  }
+  };
 
   saveData = () => {
-    setData(STORAGE_NAME,this.state);
-  }
+    setData(STORAGE_NAME, this.state);
+  };
 
   onRadioChange = e => {
     const { name, value } = e.target;
-    this.setState({ gender: value }, this.saveData );
+    this.setState({ gender: value }, this.saveData);
   };
 
   handleListChange = items => {
@@ -140,9 +142,9 @@ class ProfileForm extends Component {
           </label>
         </div>
         <MutableVerticalList
-        items={this.state.items}
-        onListChange={this.handleListChange}
-        onReset={this.handleListReset}
+          items={this.state.items}
+          onListChange={this.handleListChange}
+          onReset={this.handleListReset}
         />
       </form>
     );
