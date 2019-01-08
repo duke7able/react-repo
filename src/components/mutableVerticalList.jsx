@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 // a little function to help us with reordering the result
@@ -52,16 +51,12 @@ const getListStyle = isDraggingOver => ({
 // };
 
 // const MutableVerticalList = ({ props }) => {
-//   return ( 
+//   return (
 //           <h1>Home</h1>
 //       );
 // }
 
 class MutableVerticalList extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   onDragEnd = result => {
     // dropped outside the list
     if (!result.destination) {
@@ -83,53 +78,55 @@ class MutableVerticalList extends Component {
 
   saveChanges = items => {
     this.props.onListChange(items);
-  }
+  };
 
   render() {
     return (
       <React.Fragment>
-      <DragDropContext onDragEnd={this.onDragEnd}>
-        <Droppable droppableId="droppable">
-          {(provided, snapshot) => (
-            <div
-              ref={provided.innerRef}
-              style={getListStyle(snapshot.isDraggingOver)}
-            >
-              {this.props.items.map((item, index) => (
-                <Draggable
-                  key={item.id}
-                  draggableId={item.id.toString()}
-                  index={index}
-                >
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style
-                      )}
-                    >
-                      {index + item.content}
-                      <button
-                        type="button"
-                        onClick={() => this.onDeleteItem(index)}
-                        class="close"
-                        aria-label="Close"
+        <DragDropContext onDragEnd={this.onDragEnd}>
+          <Droppable droppableId="droppable">
+            {(provided, snapshot) => (
+              <div
+                ref={provided.innerRef}
+                style={getListStyle(snapshot.isDraggingOver)}
+              >
+                {this.props.items.map((item, index) => (
+                  <Draggable
+                    key={item.id}
+                    draggableId={item.id.toString()}
+                    index={index}
+                  >
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={getItemStyle(
+                          snapshot.isDragging,
+                          provided.draggableProps.style
+                        )}
                       >
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-      <button className="btn btn-secondary" onClick={this.props.onReset}>Reset List</button>
+                        {index + item.content}
+                        <button
+                          type="button"
+                          onClick={() => this.onDeleteItem(index)}
+                          class="close"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+        <button className="btn btn-secondary" onClick={this.props.onReset}>
+          Reset List
+        </button>
       </React.Fragment>
     );
   }

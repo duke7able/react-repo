@@ -67,7 +67,7 @@ class ProfileForm extends Component {
   };
 
   onRadioChange = e => {
-    const { name, value } = e.target;
+    const { value } = e.target;
     this.setState({ gender: value }, this.saveData);
   };
 
